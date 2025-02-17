@@ -28,7 +28,7 @@ sudo mkdir -p /mnt/immich_upload
 
 crontab -e
 @reboot sudo mount -t nfs -o vers=4 192.168.3.171:/volume1/photo/MobileBackup /mnt/immich_photo_telephone
-@reboot sudo mount -t nfs -o vers=4 192.168.3.171:/volume1/Backup_Proxmox/Immich/ /mnt/immich
+@reboot sudo mount -t nfs -o vers=4 192.168.3.171:/volume1/Backup_Proxmox/Immich /mnt/immich
 
 
 ===============================================
