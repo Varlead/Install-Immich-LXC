@@ -13,6 +13,7 @@
 nano /etc/pve/lxc/<ID_du_conteneur>.conf
   ------ Ajouter
 
+features: nesting=1,keyctl=1
 lxc.apparmor.profile = unconfined
 lxc.cgroup2.devices.allow: c 226:0 rwm
 lxc.cgroup2.devices.allow: c 226:128 rwm
@@ -25,7 +26,7 @@ sudo apt install -y nfs-common
 sudo mkdir -p /mnt/immich_nfs
 
 crontab -e
-@reboot sudo mount -t nfs -o vers=4 192.168.3.171:/volume1/photo/MobileBackup /mnt/immich_nfs
+@reboot sudo mount -t nfs -o vers=4 192.168.3.171:/volume1/photo/MobileBackup /mnt/immich_photo_telephone
 
 
 
@@ -62,8 +63,8 @@ sudo apt install -y docker-compose
 ===============================================
 Installation de immich
 ===============================================
-mkdir ./immich-app
-cd ./immich-app
+mkdir /root/immich-app/
+cd /root/immich-app/
 
   - Get docker-compose.yml file
 wget -O docker-compose.yml https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
@@ -75,10 +76,30 @@ wget -O .env https://github.com/immich-app/immich/releases/latest/download/examp
 nano docker-compose.yml
 
 Dans volume, ajouter :
-- /mnt/immich_nfs:/mnt/media/mesPhotosTelephone:ro
+- /mnt/immich_photo_telephone:/mnt/media/mesPhotosTelephone:ro
+
+Après image, ajouter dans toutes les installs (4 fois) / indentation idem à images, volume .....
+    security_opt:
+      - apparmor=unconfined
+
 
 
   - Start the containers
 docker compose up -d
+sudo docker run --security-opt apparmor=unconfined hello-world
+
+
+
+==========================================
+Configuration de Immich
+==========================================
+Ajouter le dossier externe
+
+  1. Bibliotheque extene
+  2. Créer un bibliothèque
+  3. Ajouter un chemin à importer
+  4. Mettre les dossier configurer dans le yml (exemple = /mnt/media/mesPhotosTelephone)
+
+
 
 
