@@ -1,3 +1,11 @@
+#
+# WARNING: Make sure to use the docker-compose.yml of the current release:
+#
+# https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
+#
+# The compose file on main may not be compatible with the latest release.
+#
+
 name: immich
 
 services:
@@ -7,8 +15,6 @@ services:
     # extends:
     #   file: hwaccel.transcoding.yml
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
-    security_opt:
-      - apparmor=unconfined
     volumes:
       # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD_LOCATION in the .env file
       - ${UPLOAD_LOCATION}:/usr/src/app/upload
@@ -30,20 +36,12 @@ services:
     container_name: immich_machine_learning
     # For hardware acceleration, add one of -[armnn, cuda, openvino] to the image tag.
     # Example tag: ${IMMICH_VERSION:-release}-cuda
-    security_opt:
-      - apparmor=unconfined
     image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
     # extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, openvino, openvino-wsl] for accelerated inference - use the `-wsl` version for WSL2 where applicable
     volumes:
-      - ${LIBRARY_LOCATION}:/mnt/media/immich/library/library
-      - ${UPLOAD_LOCATION}:/mnt/media/immich/library/upload/
-      - ${THUMBS_LOCATION}:/mnt/media/immich/library/thumbs/
-      - ${PROFILE_LOCATION}:/mnt/media/immich/library/profile/
-      - ${VIDEO_LOCATION}:/mnt/media/immich/library/encoded-video/
       - model-cache:/cache
-      - /mnt/immich:/mnt/media/mesPhotosTelephone:rw
     env_file:
       - .env
     restart: always
@@ -53,8 +51,6 @@ services:
   redis:
     container_name: immich_redis
     image: docker.io/redis:6.2-alpine@sha256:905c4ee67b8e0aa955331960d2aa745781e6bd89afc44a8584bfd13bc890f0ae
-    security_opt:
-      - apparmor=unconfined
     healthcheck:
       test: redis-cli ping || exit 1
     restart: always
@@ -62,8 +58,6 @@ services:
   database:
     container_name: immich_postgres
     image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
-    security_opt:
-      - apparmor=unconfined
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_USER: ${DB_USERNAME}
