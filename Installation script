@@ -54,9 +54,6 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io
   - Vérifier l’installation
 docker --version
 
-  - Ajouter l’utilisateur au groupe Docker
-sudo usermod -aG docker $USER
-
   - Installer Docker Compose
 sudo apt install -y docker-compose
 
