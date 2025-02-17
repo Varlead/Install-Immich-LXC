@@ -10,14 +10,11 @@ services:
     security_opt:
       - apparmor=unconfined
     volumes:
-      - ${LIBRARY_LOCATION}:/mnt/media/immich/library/library
-      - ${UPLOAD_LOCATION}:/mnt/media/immich/library/upload/
-      - ${THUMBS_LOCATION}:/mnt/media/immich/library/thumbs/
-      - ${PROFILE_LOCATION}:/mnt/media/immich/library/profile/
-      - ${VIDEO_LOCATION}:/mnt/media/immich/library/encoded-video/
+      # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD_LOCATION in the .env file
+      - ${UPLOAD_LOCATION}:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
       - /mnt/immich_photo_telephone:/mnt/media/mesPhotosTelephone:ro
-      - /mnt/immich:/mnt/media/mesPhotosTelephone:rw
+      - /mnt/immich:/usr/src/app/upload:rw
     env_file:
       - .env
     ports:
