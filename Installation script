@@ -71,6 +71,11 @@ cd /root/immich-app/
 wget -O docker-compose.yml https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
 wget -O docker-compose.yml https://github.com/Varlead/Install-Immich-LXC/blob/main/docker-compose.yml
 
+wget -O docker-compose.yml https://github.com/Varlead/Install-Immich-LXC/releases/latest/download/docker-compose.yml
+
+
+
+
   - Get .env file
 wget -O .env https://github.com/immich-app/immich/releases/latest/download/example.env
 wget -O .env https://github.com/immich-app/immich/releases/latest/download/.env
@@ -98,7 +103,5 @@ Ajouter le dossier externe
   2. Créer un bibliothèque
   3. Ajouter un chemin à importer
   4. Mettre les dossier configurer dans le yml (exemple = /mnt/media/mesPhotosTelephone)
-
-immich_server
 
 
