@@ -28,7 +28,7 @@ sudo mkdir -p /mnt/immich_upload
 
 crontab -e
 @reboot sudo mount -t nfs -o vers=4 192.168.3.171:/volume1/photo/MobileBackup /mnt/immich_photo_telephone
-@reboot sudo mount -t nfs -o vers=4 192.168.3.171:/volume1/Backup_Proxmox/Immich /mnt/immich
+@reboot sudo mount -t nfs -o vers=4 192.168.3.171:/volume1/Backup_Proxmox/Immich/ /mnt/immich
 
 
 ===============================================
@@ -69,46 +69,15 @@ cd /root/immich-app/
 
   - Get docker-compose.yml file
 wget -O docker-compose.yml https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
+wget -O docker-compose.yml https://github.com/Varlead/Install-Immich-LXC/blob/main/docker-compose.yml
 
   - Get .env file
 wget -O .env https://github.com/immich-app/immich/releases/latest/download/example.env
+wget -O .env https://github.com/immich-app/immich/releases/latest/download/.env
+wget -O .env https://github.com/Varlead/Install-Immich-LXC/releases/latest/download/.env
 
   - Configuration du yml
 nano docker-compose.yml
-
-    volumes:
-      - ${LIBRARY_LOCATION}:/mnt/media/library
-      - ${UPLOAD_LOCATION}:/mnt/media/immich/upload/
-      - ${THUMBS_LOCATION}:/mnt/media/immich/thumbs/
-      - ${PROFILE_LOCATION}:/mnt/media/immich/profile/
-      - ${VIDEO_LOCATION}:/mnt/media/immich/encoded-video/
-
-
-
-Dans volume, ajouter :
-- /mnt/immich_photo_telephone:/mnt/media/mesPhotosTelephone:ro
-- /mnt/immich:/mnt/media/immich:rw
-
-Après image, ajouter dans toutes les installs (4 fois) / indentation idem à images, volume .....
-    security_opt:
-      - apparmor=unconfined
-
-
-  - Configuration du .env
-nano .env
-###################################################################################
-# Upload File Location
-#
-# This is the location where uploaded files are stored.
-###################################################################################
-
-LIBRARY_LOCATION=/mnt/media/library
-THUMBS_LOCATION=/mnt/media/immich/thumbs/
-UPLOAD_LOCATION=/mnt/media/immich/upload/
-PROFILE_LOCATION=/mnt/media/immich/profile/
-VIDEO_LOCATION=/mnt/media/immich/encoded-video/
-
-
 
   - Start the containers
 docker compose up -d
