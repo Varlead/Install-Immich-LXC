@@ -23,11 +23,12 @@ lxc.mount.entry: /dev/fb0 dev/fb0 none bind,optional,create=file
 
   ------ montage auto du nfs
 sudo apt install -y nfs-common
-sudo mkdir -p /mnt/immich_nfs
+sudo mkdir -p /mnt/immich_photo_telephone
+sudo mkdir -p /mnt/immich_upload
 
 crontab -e
 @reboot sudo mount -t nfs -o vers=4 192.168.3.171:/volume1/photo/MobileBackup /mnt/immich_photo_telephone
-
+@reboot sudo mount -t nfs -o vers=4 192.168.3.171:/volume1/Backup_Proxmox/Immich /mnt/immich
 
 
 ===============================================
@@ -75,24 +76,53 @@ wget -O .env https://github.com/immich-app/immich/releases/latest/download/examp
   - Configuration du yml
 nano docker-compose.yml
 
+    volumes:
+      - ${LIBRARY_LOCATION}:/mnt/media/library
+      - ${UPLOAD_LOCATION}:/mnt/media/immich/upload/
+      - ${THUMBS_LOCATION}:/mnt/media/immich/thumbs/
+      - ${PROFILE_LOCATION}:/mnt/media/immich/profile/
+      - ${VIDEO_LOCATION}:/mnt/media/immich/encoded-video/
+
+
+
 Dans volume, ajouter :
 - /mnt/immich_photo_telephone:/mnt/media/mesPhotosTelephone:ro
+- /mnt/immich:/mnt/media/immich:rw
 
 Après image, ajouter dans toutes les installs (4 fois) / indentation idem à images, volume .....
     security_opt:
       - apparmor=unconfined
 
 
+  - Configuration du .env
+nano .env
+###################################################################################
+# Upload File Location
+#
+# This is the location where uploaded files are stored.
+###################################################################################
+
+LIBRARY_LOCATION=/mnt/media/library
+THUMBS_LOCATION=/mnt/media/immich/thumbs/
+UPLOAD_LOCATION=/mnt/media/immich/upload/
+PROFILE_LOCATION=/mnt/media/immich/profile/
+VIDEO_LOCATION=/mnt/media/immich/encoded-video/
+
+
 
   - Start the containers
 docker compose up -d
-sudo docker run --security-opt apparmor=unconfined hello-world
 
 
 
 ==========================================
 Configuration de Immich
 ==========================================
+Ajouter dans la recherche intelligente le français
+  1. Paramètres du système > Paramètres de l’apprentissage automatique > Recherche Intelligente
+  2. ViT-H-14-378-quickgelu__dfn5b
+
+
 Ajouter le dossier externe
 
   1. Bibliotheque extene
@@ -100,6 +130,6 @@ Ajouter le dossier externe
   3. Ajouter un chemin à importer
   4. Mettre les dossier configurer dans le yml (exemple = /mnt/media/mesPhotosTelephone)
 
-
+immich_server
 
 
