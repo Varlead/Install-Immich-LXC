@@ -9,16 +9,25 @@
 
 ====> Si pas de console, prendre une version plus vielle de ubuntu
 
-- Dans le shell principal de proxmox, activier nfs pour la CT
+  ------ Dans le shell principal de proxmox, activier nfs pour la CT et l'accélération video
 nano /etc/pve/lxc/<ID_du_conteneur>.conf
-  - Ajouter
-lxc.apparmor.profile = unconfined
+  ------ Ajouter
 
+lxc.apparmor.profile = unconfined
 lxc.cgroup2.devices.allow: c 226:0 rwm
 lxc.cgroup2.devices.allow: c 226:128 rwm
 lxc.cgroup2.devices.allow: c 29:0 rwm
 lxc.mount.entry: /dev/dri dev/dri none bind,optional,create=dir
 lxc.mount.entry: /dev/fb0 dev/fb0 none bind,optional,create=file
+
+  ------ montage auto du nfs
+sudo apt install -y nfs-common
+sudo mkdir -p /mnt/immich_nfs
+
+crontab -e
+@reboot sudo mount -t nfs -o vers=4 192.168.3.171:/volume1/photo/MobileBackup /mnt/immich_nfs
+
+
 
 ===============================================
 Installation de Docker
