@@ -10,14 +10,14 @@ services:
     security_opt:
       - apparmor=unconfined
     volumes:
-      - ${LIBRARY_LOCATION}:/mnt/media/library
-      - ${UPLOAD_LOCATION}:/mnt/media/immich/upload/
-      - ${THUMBS_LOCATION}:/mnt/media/immich/thumbs/
-      - ${PROFILE_LOCATION}:/mnt/media/immich/profile/
-      - ${VIDEO_LOCATION}:/mnt/media/immich/encoded-video/
+      - ${LIBRARY_LOCATION}:/mnt/media/immich/library/library
+      - ${UPLOAD_LOCATION}:/mnt/media/immich/library/upload/
+      - ${THUMBS_LOCATION}:/mnt/media/immich/library/thumbs/
+      - ${PROFILE_LOCATION}:/mnt/media/immich/library/profile/
+      - ${VIDEO_LOCATION}:/mnt/media/immich/library/encoded-video/
       - /etc/localtime:/etc/localtime:ro
       - /mnt/immich_photo_telephone:/mnt/media/mesPhotosTelephone:ro
-      - /mnt/immich_upload:/mnt/media/mesPhotosTelephone:rw
+      - /mnt/immich:/mnt/media/mesPhotosTelephone:rw
     env_file:
       - .env
     ports:
@@ -40,7 +40,13 @@ services:
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, openvino, openvino-wsl] for accelerated inference - use the `-wsl` version for WSL2 where applicable
     volumes:
+      - ${LIBRARY_LOCATION}:/mnt/media/immich/library/library
+      - ${UPLOAD_LOCATION}:/mnt/media/immich/library/upload/
+      - ${THUMBS_LOCATION}:/mnt/media/immich/library/thumbs/
+      - ${PROFILE_LOCATION}:/mnt/media/immich/library/profile/
+      - ${VIDEO_LOCATION}:/mnt/media/immich/library/encoded-video/
       - model-cache:/cache
+      - /mnt/immich:/mnt/media/mesPhotosTelephone:rw
     env_file:
       - .env
     restart: always
