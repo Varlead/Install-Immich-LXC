@@ -24,8 +24,9 @@ lxc.mount.entry: /dev/fb0 dev/fb0 none bind,optional,create=file
 sudo apt install -y nfs-common
 
 nano /etc/fstab
-192.168.3.171:/volume1/photo/MobileBackup  /mnt/immich_photo_telephone   nfs   defaults   0  0
-192.168.3.171:/volume1/Backup_Proxmox/Immich /mnt/immich   nfs   defaults   0  0
+
+192.168.3.171:/volume1/Backup_Proxmox/Immich    /mnt/immich   nfs   defaults   0  0
+192.168.3.171:/volume1/photo/MobileBackup       /mnt/immich_photo_telephone   nfs   defaults   0  0
 
 
 ===============================================
