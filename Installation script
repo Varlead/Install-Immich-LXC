@@ -1,7 +1,7 @@
 - Récupérer le template de CT - Ubuntu - Dernière version LTS
 
 - Créer une nouvelle CT
-  - décocher unproviledged 
+  - décocher unpriviledged 
   - Disk size = 32 GB32
   - Core 8
   - Memory 4096 / 2048
