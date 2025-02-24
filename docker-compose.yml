@@ -23,6 +23,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /mnt/immich_photo_telephone:/mnt/media/mesPhotosTelephone:ro
       - /mnt/immich:/mnt/media/upload:rw
+      - /mnt/immich_photo_finale:/mnt/media/photosFinales:ro
     env_file:
       - .env
     ports:
@@ -48,6 +49,7 @@ services:
       - model-cache:/cache
       - /mnt/immich_photo_telephone:/mnt/media/mesPhotosTelephone:ro
       - /mnt/immich:/mnt/media/upload:rw
+      - /mnt/immich_photo_finale:/mnt/media/photosFinales:ro
     env_file:
       - .env
     restart: always
