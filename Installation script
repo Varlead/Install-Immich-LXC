@@ -27,6 +27,7 @@ nano /etc/fstab
 
 192.168.3.171:/volume1/Backup_Proxmox/Immich    /mnt/immich   nfs   defaults   0  0
 192.168.3.171:/volume1/photo/MobileBackup       /mnt/immich_photo_telephone   nfs   defaults   0  0
+192.168.3.171:/volume1/photo/Photos_Finales     /mnt/immich_photo_finale  nfs   defaults   0  0
 
 
 ==============================================
