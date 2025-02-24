@@ -6,7 +6,7 @@
 # The compose file on main may not be compatible with the latest release.
 #
 
-#name: immich
+name: immich
 
 services:
   immich-server:
@@ -22,7 +22,7 @@ services:
       - ${UPLOAD_LOCATION}:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
       - /mnt/immich_photo_telephone:/mnt/media/mesPhotosTelephone:ro
-      - /mnt/immich:/usr/src/app/upload:rw
+      - /mnt/immich:/mnt/media/upload:rw
     env_file:
       - .env
     ports:
@@ -46,6 +46,8 @@ services:
     #   service: cpu # set to one of [armnn, cuda, openvino, openvino-wsl] for accelerated inference - use the `-wsl` version for WSL2 where applicable
     volumes:
       - model-cache:/cache
+      - /mnt/immich_photo_telephone:/mnt/media/mesPhotosTelephone:ro
+      - /mnt/immich:/mnt/media/upload:rw
     env_file:
       - .env
     restart: always
@@ -96,3 +98,5 @@ services:
 
 volumes:
   model-cache:
+  /mnt/immich_photo_telephone:/mnt/media/mesPhotosTelephone:ro
+  /mnt/immich:/mnt/media/upload:rw
