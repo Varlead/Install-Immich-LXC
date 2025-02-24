@@ -10,3 +10,10 @@ docker compose pull && docker compose up -d
 
   - Clean up unused Docker images
 docker image prune
+
+
+  - Passer en mode terminal dans un container
+docker exec -it <id du conteneur> bash
+
+  - Liste des containter
+docker ps
