@@ -13,7 +13,7 @@
 nano /etc/pve/lxc/<ID_du_conteneur>.conf
   ------ Ajouter
 
-features: nesting=1,keyctl=1
+======================================================features: nesting=1,keyctl=1
 lxc.apparmor.profile = unconfined
 lxc.cgroup2.devices.allow: c 226:0 rwm
 lxc.cgroup2.devices.allow: c 226:128 rwm
@@ -23,12 +23,10 @@ lxc.mount.entry: /dev/fb0 dev/fb0 none bind,optional,create=file
 
   ------ montage auto du nfs
 sudo apt install -y nfs-common
-sudo mkdir -p /mnt/immich_photo_telephone
-sudo mkdir -p /mnt/immich_upload
 
-crontab -e
-@reboot sudo mount -t nfs -o vers=4 192.168.3.171:/volume1/photo/MobileBackup /mnt/immich_photo_telephone
-@reboot sudo mount -t nfs -o vers=4 192.168.3.171:/volume1/Backup_Proxmox/Immich /mnt/immich
+nano /etc/fstab
+192.168.3.171:/volume1/photo/MobileBackup  /mnt/immich_photo_telephone   nfs   defaults   0  0
+192.168.3.171:/volume1/Backup_Proxmox/Immich /mnt/immich   nfs   defaults   0  0
 
 
 ===============================================
@@ -66,17 +64,9 @@ cd /root/immich-app/
 
   - Get docker-compose.yml file
 wget -O docker-compose.yml https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
-wget -O docker-compose.yml https://github.com/Varlead/Install-Immich-LXC/blob/main/docker-compose.yml
-
-wget -O docker-compose.yml https://github.com/Varlead/Install-Immich-LXC/releases/latest/download/docker-compose.yml
-
-
-
 
   - Get .env file
 wget -O .env https://github.com/immich-app/immich/releases/latest/download/example.env
-wget -O .env https://github.com/immich-app/immich/releases/latest/download/.env
-wget -O .env https://github.com/Varlead/Install-Immich-LXC/releases/latest/download/.env
 
   - Configuration du yml
 nano docker-compose.yml
