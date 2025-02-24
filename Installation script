@@ -78,11 +78,6 @@ nano .env
   - Get hardware acceleration file
 nano hwaccel.transcoding.yml
 
-
-
-  - Configuration du yml
-nano docker-compose.yml
-
   - Start the containers
 docker compose up -d
 
