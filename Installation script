@@ -29,6 +29,13 @@ nano /etc/fstab
 192.168.3.171:/volume1/photo/MobileBackup       /mnt/immich_photo_telephone   nfs   defaults   0  0
 
 
+==============================================
+Installation accélératin matériel
+==============================================
+https://github.com/intel/compute-runtime/releases
+
+
+
 ===============================================
 Installation de Docker
 ===============================================
