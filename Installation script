@@ -70,10 +70,15 @@ mkdir /root/immich-app/
 cd /root/immich-app/
 
   - Get docker-compose.yml file
-wget -O docker-compose.yml https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
+nano docker-compose.yml
 
   - Get .env file
-wget -O .env https://github.com/immich-app/immich/releases/latest/download/example.env
+nano .env
+
+  - Get hardware acceleration file
+nano hwaccel.transcoding.yml
+
+
 
   - Configuration du yml
 nano docker-compose.yml
